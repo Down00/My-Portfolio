@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --foreground-rgb: 226, 232, 240;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 2, 6, 23;
+  --accent-rgb: 139, 92, 246;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom right,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-slate-900/40 backdrop-blur-lg border border-slate-700/50 rounded-xl;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-indigo-400;
+    background-size: 200% 100%;
+    animation: gradient 8s linear infinite;
+  }
+
+  .animated-border {
+    @apply relative overflow-hidden rounded-xl;
+    &::before {
+      content: '';
+      @apply absolute inset-0 bg-gradient-to-r from-violet-500 to-indigo-500;
+      animation: rotate 4s linear infinite;
+    }
+    &::after {
+      content: '';
+      @apply absolute inset-[2px] rounded-xl bg-slate-900;
+    }
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-medium transition-all;
+    
+    &::before {
+      content: '';
+      @apply absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-violet-600 to-indigo-600;
+      transition: transform 0.4s ease-in-out;
+    }
+    
+    &:hover::before {
+      @apply translate-x-0;
+    }
+    
+    span {
+      @apply relative z-10 transition-colors duration-300;
+    }
+  }
+
+  .btn-glass {
+    @apply relative inline-flex items-center justify-center px-8 py-3 overflow-hidden;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+
+    &::before {
+      content: '';
+      @apply absolute inset-0 opacity-0;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    &:hover::before {
+      @apply opacity-100;
+    }
+
+    span {
+      @apply relative z-10;
+    }
+  }
+
+  .section-container {
+    @apply h-full flex items-center justify-center px-4 py-8 overflow-y-auto;
+  }
+
+  .scroll-indicator {
+    @apply absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer;
+  }
+}
+
+@layer components {
+  /* Custom focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-violet-500 ring-offset-2 ring-offset-slate-900;
+  }
+
+  /* Custom input placeholder color */
+  ::placeholder {
+    @apply text-slate-500;
+  }
+
+  /* Custom scrollbar styles */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-violet-500/50 rounded-full hover:bg-violet-500/70 transition-colors;
+  }
+
+  /* Custom selection color */
+  ::selection {
+    @apply bg-violet-500/30 text-white;
+  }
+
+  /* Line clamp utility */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
