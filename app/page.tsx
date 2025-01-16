@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-import { useState, FormEvent, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
+import Image from 'next/image';
+import { FormEvent, useEffect, useState } from 'react';
 import { z } from 'zod';
 
 // Initialize EmailJS with your public key
@@ -91,7 +91,7 @@ export default function Home() {
     {
       title: 'JobIntHelper App',
       description: 'A mobile application Project for Job Aplicants to improve their communication skills and to expand their knowledge in different fields using React Native.',
-      image: '/jobint.jpg',
+      image: '/jobint.png',
       technologies: ['React Native', 'Firebase'],
       github: 'https://github.com/Down00/JobIntHelper',
       //demo: 'https://shop.kaiznitullano.com',
